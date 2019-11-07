@@ -14,19 +14,28 @@
     "chalk": "^2.4.2",
     "classnames": "^2.2.6",
     "fs-extra": "^8.1.0",
+    "immer": "^5.0.0",
     "jsome": "^2.5.0",
     "kind-of": "^6.0.2",
+    "lodash": "^4.17.15",
+    "nanoid": "^2.1.6",
     "next": "9.1",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.3",
+    "redux": "^4.0.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.0",
     "@babel/core": "^7.5.5",
     "@babel/node": "^7.6.1",
+    "@types/node": "^12.12.6",
+    "@types/react": "^16.9.11",
     "babel-plugin-root-import": "^6.4.1",
     "babel-watch": "^7.0.0",
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "redux-devtools": "^3.5.0",
+    "typescript": "^3.7.2"
   },
   "scripts": {
     "dev": "next"
