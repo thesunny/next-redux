@@ -1,7 +1,8 @@
 import nanoid from "nanoid"
+import { original } from "immer"
 import styled from "@emotion/styled"
-import { useDepartment } from "/lib/store"
 import { useState } from "react"
+import { useStore } from "/lib/store/index"
 
 const Container = styled.div`
   padding: 1em 2em;
@@ -21,11 +22,12 @@ const AddTodo = styled.div`
 `
 
 function Entry() {
-  const [todos, setTodos] = useDepartment(s => s.todos)
+  const [list, setList] = useStore(s => s.entry.list)
+  const [todos, patchTodos] = useStore(s => s.entry.todos)
   const [text, setText] = useState("")
 
   function addTodo(e) {
-    setTodos(todos => {
+    patchTodos(todos => {
       todos.push({ id: nanoid(), text, completed: false })
       setText("")
     })
@@ -46,13 +48,13 @@ function Entry() {
       </AddTodo>
       {todos.map((todo, i) => {
         function onChange(e) {
-          setTodos(todos => {
+          patchTodos(todos => {
             todos[i].completed = e.target.checked
           })
         }
         function remove(e) {
-          setTodos(todos => {
-            delete todos[i]
+          patchTodos(todos => {
+            todos.splice(i, 1)
           })
         }
         return (
@@ -79,11 +81,16 @@ function Entry() {
 
 Entry.getInitialProps = function() {
   return {
-    todos: [
-      { id: 1, text: "Clean the house", completed: false },
-      { id: 2, text: "Bake a pie", completed: false },
-      { id: 3, text: "Watch TV", completed: true },
-    ],
+    entry: {
+      list: {
+        title: "",
+      },
+      todos: [
+        { id: 1, text: "Clean the house", completed: false },
+        { id: 2, text: "Bake a pie", completed: false },
+        { id: 3, text: "Watch TV", completed: true },
+      ],
+    },
   }
 }
 
