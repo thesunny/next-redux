@@ -95,13 +95,14 @@ function Entry() {
         return (
           <div key={todo.id}>
             <input
+              className="mr-1"
               type="checkbox"
               checked={todo.completed}
               onChange={onChange}
-            />{" "}
+            />
             {todo.text}
             <span
-              className="ml-2"
+              className="ml-2 badge badge-secondary"
               style={{ cursor: "pointer" }}
               onClick={remove}
             >
