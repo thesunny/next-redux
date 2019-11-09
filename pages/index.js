@@ -22,9 +22,11 @@ const AddTodo = styled.div`
 `
 
 function Entry() {
-  const [list, setList] = useStore(s => s.entry.list)
+  const [list, patchList] = useStore(s => s.entry.list)
   const [todos, patchTodos] = useStore(s => s.entry.todos)
+  const [isEditing, setIsEditing] = useState(false)
   const [text, setText] = useState("")
+  const [title, setTitle] = useState("")
 
   function addTodo(e) {
     patchTodos(todos => {
@@ -32,9 +34,42 @@ function Entry() {
       setText("")
     })
   }
+
   return (
     <Container>
-      <Title>Hello World</Title>
+      {isEditing ? (
+        <div className="mb-3">
+          <input
+            autoFocus={true}
+            className="form-control mb-1"
+            type="text"
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+          />
+          <div>
+            <button
+              onClick={() => {
+                patchList(list => (list.title = title))
+                setIsEditing(false)
+              }}
+            >
+              Save Change
+            </button>
+          </div>
+        </div>
+      ) : (
+        <>
+          <button
+            onClick={() => {
+              setTitle(list.title)
+              setIsEditing(true)
+            }}
+          >
+            Edit Title
+          </button>
+          <Title>{list.title}</Title>
+        </>
+      )}
       <AddTodo>
         <input
           className="form-control"
@@ -83,7 +118,7 @@ Entry.getInitialProps = function() {
   return {
     entry: {
       list: {
-        title: "",
+        title: "Hello World",
       },
       todos: [
         { id: 1, text: "Clean the house", completed: false },
